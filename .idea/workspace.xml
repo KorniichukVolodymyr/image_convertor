@@ -2,18 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d0121250-fa2b-46bf-826e-ec4e60c2ae59" name="Changes" comment="convert img to webp -&gt; gulp webp">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/image convertor.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/image-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/image-1@2x.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/image-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/image-2@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/image-3.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/image-4.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/vector.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compressImage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,8 +115,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gulp.js.default" />
         <item itemvalue="Gulp.js.convert" />
+        <item itemvalue="Gulp.js.default" />
         <item itemvalue="Gulp.js.min" />
         <item itemvalue="npm.compress-images" />
         <item itemvalue="Node.js.compressImage.js" />

@@ -1,13 +1,12 @@
-import gulp from 'gulp';
-import webp from 'gulp-webp';
-import clone from 'gulp-clone';
-import rename from 'gulp-rename';
-import run from 'gulp-run';
-
+const gulp = require('gulp');
+const webp = require('gulp-webp');
+const clone = require('gulp-clone');
+const rename = require('gulp-rename');
+const compress_images = require("compress-images");
 const cloneSink = clone.sink();
 
 gulp.task('convert', () =>
-  gulp.src('./dist/**/*.{jpg,JPG,jpeg,JPEG,png,svg}')
+  gulp.src('./img/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif}')
     .pipe(rename(function (path) {
       path.basename = path.basename.replace('@', '_');
       return path.dirname + path.basename
@@ -15,12 +14,26 @@ gulp.task('convert', () =>
     .pipe(cloneSink)
     .pipe(webp())
     .pipe(cloneSink.tap())
-    .pipe(gulp.dest('build'))
+    .pipe(gulp.dest('dist'))
 );
 
-gulp.task('min', function () {
-  return gulp.src('./compressImage.js',)
-    .pipe(run('npm run compress-images'))
-});
+gulp.task('min', (done) =>
+ compress_images(
+    "./dist/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif,webp}",
+    "build/",
+    { compress_force: false, statistic: true, autoupdate: true },
+    false,
+    { jpg: { engine: "mozjpeg", command: ["-quality", "84"] } },
+    { png: { engine: "pngquant", command: ["--quality=89-91", "-o"] } },
+    { svg: { engine: "svgo", command: "--multipass" } },
+    { gif: { engine: "gifsicle", command: ["--colors", "64", "--use-col=web"] } },
+    function (error, completed, statistic) {
+      // console.log(error)
+      // console.log(completed)
+      // console.log(statistic)
+    },
+    done()
+  )
+);
 
-gulp.task('default', gulp.series('min', 'convert'))
+gulp.task('default', gulp.series('convert', 'min'))
