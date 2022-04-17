@@ -1,18 +1,18 @@
 ## Assembly for image processing
 
-### Installation
+### Installation:
 
 ```bash
 $ npm install
 ```
 
-### Requirements
+### Requirements:
 
 - node >= 14
 
 ***
 
-### Supported formats
+### Supported formats:
 
 |  type  | minimization | conversion |    result    |
 |:------:|:------------:|:----------:|:------------:|
@@ -22,3 +22,7 @@ $ npm install
 | `webp` |              |            |              |
 | `svg`  |      *       |            |    `svg`     |
 | `gif`  |      *       |            |    `gif`     |
+
+### Setting:
+#### imagemin-webp [this](https://www.npmjs.com/package/imagemin-webp)
+#### Setting compress-images [this](https://github.com/Yuriy-Svetlov/compress-images/)
