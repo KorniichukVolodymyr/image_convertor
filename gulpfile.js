@@ -24,11 +24,11 @@ gulp.task("rename", () =>
     .pipe(gulp.dest("dist"))
 );
 
-gulp.task("min", () =>
+gulp.task("min", (done) =>
   compress_images(
     "./dist/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif}",
     "compress/",
-    {compress_force: false, statistic: true, autoupdate: true},
+    {compress_force: false, statistic: false, autoupdate: false},
     false,
     {jpg: {engine: "mozjpeg", command: ["-quality", "80"]}},
     {png: {engine: "pngquant", command: ["--quality=88-90", "-o"]}},
@@ -38,7 +38,8 @@ gulp.task("min", () =>
       // console.log(error);
       // console.log(completed);
       // console.log(statistic);
-    }
+    },
+    done()
   )
 );
 
@@ -59,12 +60,11 @@ gulp.task("convert", () =>
             sharpness: 7,
             lossless: false,
             nearLossless: false,
-            metadata: 'exif'
+            metadata: "exif"
           })
       ]
     }
   )
 );
 
-
-gulp.task("default", gulp.series("rename", "min", "convert"))
+gulp.task("default", gulp.series("rename", "min", "convert"));
