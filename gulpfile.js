@@ -8,9 +8,15 @@ import imageminWebp from "imagemin-webp";
 const cloneSink = clone.sink();
 
 gulp.task("rename", () =>
-  gulp.src("./img/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif}")
+  gulp.src("./img/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif,webp}")
     .pipe(rename(function (path) {
-      path.basename = path.basename.replace("@", "_");
+      path.basename = path.basename
+        .replace("@0.25x", "_mob")
+        .replace("@0.5x", "_mob_2x")
+        .replace("@0.75x", "_tab")
+        .replace("@1.25x", "_tab_2x")
+        .replace("@1x", "_desk")
+        .replace("@2x", "_desk_2x");
       return path.dirname + path.basename;
     }))
     .pipe(cloneSink)
@@ -18,43 +24,47 @@ gulp.task("rename", () =>
     .pipe(gulp.dest("dist"))
 );
 
-gulp.task("convert", () =>
-    imagemin(
-      ["./dist/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif}"],
-      {
-        destination: "build/",
-        plugins: [
-          imageminWebp(
-            {
-              quality: 80,
-              alphaQuality: 100,
-              method: 6,
-              sharpness: 7,
-              nearLossless: 100,
-              metadata: 'exif'
-            })
-        ]
-      }
-    )
-);
-
-gulp.task("min", (done) =>
+gulp.task("min", () =>
   compress_images(
-    "./dist/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif,webp}",
-    "build/",
+    "./dist/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif}",
+    "compress/",
     {compress_force: false, statistic: true, autoupdate: true},
     false,
-    {jpg: {engine: "mozjpeg", command: ["-quality", "84"]}},
-    {png: {engine: "pngquant", command: ["--quality=89-91", "-o"]}},
+    {jpg: {engine: "mozjpeg", command: ["-quality", "80"]}},
+    {png: {engine: "pngquant", command: ["--quality=88-90", "-o"]}},
     {svg: {engine: "svgo", command: "--multipass"}},
     {gif: {engine: "gifsicle", command: ["--colors", "64", "--use-col=web"]}},
     function (error, completed, statistic) {
       // console.log(error);
       // console.log(completed);
       // console.log(statistic);
-    },
-    done()
+    }
   )
 );
 
-gulp.task("default", gulp.series("rename", "convert", "min"))
+gulp.task("convert", () =>
+  imagemin(
+    ["./compress/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif}"],
+    {
+      destination: "build/",
+      plugins: [
+        imageminWebp(
+          {
+            quality: 85,
+            alphaQuality: 100,
+            method: 6,
+            sns: 100,
+            filter: 100,
+            autoFilter: true,
+            sharpness: 7,
+            lossless: false,
+            nearLossless: false,
+            metadata: 'exif'
+          })
+      ]
+    }
+  )
+);
+
+
+gulp.task("default", gulp.series("rename", "min", "convert"))
