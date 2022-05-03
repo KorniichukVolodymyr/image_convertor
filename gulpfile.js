@@ -46,7 +46,7 @@ gulp.task("min", (done) =>
 
 gulp.task("convert-jpg", () =>
   imagemin(
-    ["./img/**/*.{jpg,JPG,jpeg,JPEG}"],
+    ["./dist/**/*.{jpg,JPG,jpeg,JPEG}"],
     {
       destination: "build/",
       plugins: [
@@ -70,7 +70,7 @@ gulp.task("convert-jpg", () =>
 
 gulp.task("convert-png", () =>
   imagemin(
-    ["./img/**/*.{png,PNG}"],
+    ["./dist/**/*.{png,PNG}"],
     {
       destination: "build/",
       plugins: [
