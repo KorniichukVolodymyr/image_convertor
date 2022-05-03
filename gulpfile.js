@@ -11,6 +11,7 @@ gulp.task("rename", () =>
   gulp.src("./img/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif,webp}")
     .pipe(rename(function (path) {
       path.basename = path.basename
+        .replace(/-\d/g, "")
         .replace("@0.25x", "_mob")
         .replace("@0.5x", "_mob_2x")
         .replace("@0.75x", "_tab")
@@ -43,9 +44,9 @@ gulp.task("min", (done) =>
   )
 );
 
-gulp.task("convert", () =>
+gulp.task("convert-jpg", () =>
   imagemin(
-    ["./compress/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif}"],
+    ["./img/**/*.{jpg,JPG,jpeg,JPEG}"],
     {
       destination: "build/",
       plugins: [
@@ -58,8 +59,8 @@ gulp.task("convert", () =>
             filter: 100,
             autoFilter: true,
             sharpness: 7,
-            lossless: false,
-            nearLossless: false,
+            // lossless: true,
+            // nearLossless: 100,
             metadata: "exif"
           })
       ]
@@ -67,4 +68,29 @@ gulp.task("convert", () =>
   )
 );
 
+gulp.task("convert-png", () =>
+  imagemin(
+    ["./img/**/*.{png,PNG}"],
+    {
+      destination: "build/",
+      plugins: [
+        imageminWebp(
+          {
+            quality: 100,
+            alphaQuality: 100,
+            method: 6,
+            sns: 100,
+            filter: 100,
+            autoFilter: true,
+            sharpness: 7,
+            lossless: true,
+            nearLossless: 100,
+            metadata: "exif"
+          })
+      ]
+    }
+  )
+);
+
+gulp.task("convert", gulp.parallel("convert-jpg", "convert-png"));
 gulp.task("default", gulp.series("rename", "min", "convert"));
