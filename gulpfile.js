@@ -20,8 +20,6 @@ gulp.task("rename", () =>
         .replace("@2x", "_desk_2x");
       return path.dirname + path.basename;
     }))
-    .pipe(cloneSink)
-    .pipe(cloneSink.tap())
     .pipe(gulp.dest("dist"))
 );
 
@@ -44,6 +42,13 @@ gulp.task("min", (done) =>
   )
 );
 
+gulp.task("copy", () =>
+  gulp.src("./dist/**/*.{jpg,JPG,jpeg,JPEG,png,svg,gif,webp}")
+    .pipe(cloneSink)
+    .pipe(cloneSink.tap())
+    .pipe(gulp.dest("build"))
+);
+
 gulp.task("convert-jpg", () =>
   imagemin(
     ["./dist/**/*.{jpg,JPG,jpeg,JPEG}"],
@@ -62,7 +67,8 @@ gulp.task("convert-jpg", () =>
             // lossless: true,
             // nearLossless: 100,
             metadata: "exif"
-          })
+          }
+        )
       ]
     }
   )
@@ -86,11 +92,15 @@ gulp.task("convert-png", () =>
             lossless: true,
             nearLossless: 100,
             metadata: "exif"
-          })
+          }
+        )
       ]
     }
   )
 );
 
-gulp.task("convert", gulp.parallel("convert-jpg", "convert-png"));
-gulp.task("default", gulp.series("rename", "min", "convert"));
+gulp.task("default",
+  gulp.series("rename", "copy",
+    gulp.parallel("convert-jpg", "convert-png")
+  )
+);
