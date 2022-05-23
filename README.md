@@ -16,12 +16,11 @@ $ npm install
 
 |  type  | minimization | conversion |    result     |
 |:------:|:------------:|:----------:|:-------------:|
-| `jpg`  |      *       |     *      | `jpg + webp`  |
-| `jpeg` |      *       |     *      | `jpeg + webp` |
-| `png`  |      *       |     *      | `png + webp`  |
-| `webp` |              |            |               |
-| `svg`  |      *       |            |     `svg`     |
-| `gif`  |      *       |            |     `gif`     |
+| `jpg`  |              |     *      | `jpg + webp`  |
+| `jpeg` |              |     *      | `jpeg + webp` |
+| `png`  |              |     *      | `png + webp`  |
+| `svg`  |              |            |     `svg`     |
+| `gif`  |              |            |     `gif`     |
 
 ### Setting:
 #### imagemin-webp [this](https://www.npmjs.com/package/imagemin-webp)
