@@ -13,9 +13,15 @@ gulp.task("rename", () =>
       path.basename = path.basename
         .replace(/-\d/g, "")
         .replace("@0.25x", "_mob")
+        .replace("@0.3x", "_mob")
         .replace("@0.5x", "_mob_2x")
         .replace("@0.75x", "_tab")
         .replace("@1.25x", "_tab_2x")
+        .replace("@0,25x", "_mob")
+        .replace("@0,3x", "_mob")
+        .replace("@0,5x", "_mob_2x")
+        .replace("@0,75x", "_tab")
+        .replace("@1,25x", "_tab_2x")
         .replace("@1x", "_desk")
         .replace("@2x", "_desk_2x");
       return path.dirname + path.basename;
